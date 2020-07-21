@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Sheet Music Player</title>
+    <meta charset="UTF-8">
+
+    <!-- <link href="http://www.vexflow.com/vextab/tabdiv.css" media="screen" rel="Stylesheet" type="text/css" /> -->
+    <!-- <link href="http://www.vexflow.com/vextab/style.css" media="screen" rel="Stylesheet" type="text/css" /> -->
+
+    <link href="./SheetMusicPlayer.css" rel="Stylesheet" type="text/css"/>
+  
+    <!-- VexFlow Compiled Source -->
+    
+    <!-- <script src="http://www.vexflow.com/vextab/support/vexflow-min.js"></script> -->
+    <!-- <script src="http://cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.js"></script> -->
+    <!-- <script src="http://code.jquery.com/jquery-2.1.0.min.js"></script> -->
+    <!-- <script src="http://www.vexflow.com/support/tabdiv-debug.js"></script> -->
+
+    <script src="https://npmcdn.com/vexflow@1.2.84/releases/vexflow-debug.js"></script>
+
+  </head>
+  <body>
+    <div class="sheet_music_player">
+        <h1>Twinkle Twinkle Little Star</h1>
+        <h4>Author: Jane Taylor</h4>
+        <p>Twinkle, twinkle, little star<br>
+           How I wonder what you are...</p>
+        <button class="sheet_music_player_button" onclick="play()">Play</button>
+        <canvas id="sheet_music_canvas" style="border:2px solid #000000;"></canvas>
+        <p>Sheet Music by: Zhechko Popov</p>
+
+        <script>
+
+            function include(file) {
+              var script = document.createElement('script');
+              script.src = file;
+              script.type = 'text/javascript';
+
+              document.getElementsByTagName('script').item(0).appendChild(script);
+            }
+
+            include('./TwinkleTwinkleLittleStar.js');
+
+            VF = Vex.Flow;
+        
+            var WorkspaceInformation = {
+                canvas: document.getElementById("sheet_music_canvas"),
+                // Vex creates a canvas with specific dimensions (thinclude('./TwinkleTwinkleLittleStar.js');ey consider the size of the sheet music)
+                canvasWidth: 796,
+                canvasHeight: 220
+            };
+        
+            // Create a renderer with Canvas
+            var renderer = new VF.Renderer(
+                WorkspaceInformation.canvas,
+                VF.Renderer.Backends.CANVAS
+            );
+        
+            // Use the renderer to give the dimensions to the canvas
+            renderer.resize(WorkspaceInformation.canvasWidth, WorkspaceInformation.canvasHeight);
+        
+            // Expose the context of the renderer
+            var context = renderer.getContext();
+            
+            function play() {
+                initCursor();
+                var audio = new Audio('./TwinkleTwinkleLittleStar.mp3');
+                audio.play();
+            }
+        
+            function initCursor() {
+                // position the cursor in the canvas (beginnig position is (80:40))
+                x = 80;
+                y = 40;
+        
+                // get the canvas in order to draw in it
+                var canvas = document.getElementById("sheet_music_canvas");
+                // set cursor speed (appropriate for TwinkleTwinkleLittleStar.mp3)
+                const speed = 55;
+        
+                if (canvas.getContext) {
+                // get 2d context
+                ctx = canvas.getContext('2d');
+                // draw function will be run every $(speed) miliseconds
+                animation = setInterval(draw, speed); 
+                }
+            }
+        
+            function draw() {        
+                ctx.fillStyle = 'rgba(180,0,0,0.3)'; //red color with opacity 0.3
+                const cursorHeight = 40;
+                const cursorWidth = 10;
+                ctx.fillRect(x, y, cursorWidth, cursorHeight);
+                x = x+10;
+                if (x == 790) { //end of sheet is reached
+                switch (y)
+                {
+                case 40:
+                    y=140;
+                    x=80;				
+                    break;
+                case 140:
+                    clearCursor(ctx, animation, x, y);
+                }
+                }
+            }
+            
+            function clearCursor(ctx, animation, x, y) {
+                clearInterval(animation);
+            }
+        </script>
+    </div>
+  </body>
+</html> 
