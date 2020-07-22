@@ -8,6 +8,7 @@
     <!-- <link href="http://www.vexflow.com/vextab/style.css" media="screen" rel="Stylesheet" type="text/css" /> -->
 
     <link href="./SheetMusicPlayer.css" rel="Stylesheet" type="text/css"/>
+    <script src="./Twinkle.js"></script>
   
     <!-- VexFlow Compiled Source -->
     
@@ -39,7 +40,7 @@
               document.getElementsByTagName('script').item(0).appendChild(script);
             }
 
-            include('./TwinkleTwinkleLittleStar.js');
+            include('./Twinkle.js');
 
             VF = Vex.Flow;
         
@@ -47,7 +48,7 @@
                 canvas: document.getElementById("sheet_music_canvas"),
                 // Vex creates a canvas with specific dimensions (thinclude('./TwinkleTwinkleLittleStar.js');ey consider the size of the sheet music)
                 canvasWidth: 796,
-                canvasHeight: 220
+                canvasHeight: canvasHeightVar
             };
         
             // Create a renderer with Canvas
@@ -93,15 +94,35 @@
                 ctx.fillRect(x, y, cursorWidth, cursorHeight);
                 x = x+10;
                 if (x == 790) { //end of sheet is reached
-                switch (y)
-                {
-                case 40:
-                    y=140;
-                    x=80;				
-                    break;
-                case 140:
-                    clearCursor(ctx, animation, x, y);
-                }
+                    switch (y)
+                    {
+                    case 40:
+                        y=140;
+                        x=80;	
+                        if(staveCount/2 == 1){
+                            clearCursor(ctx, animation, x, y);
+                        }			
+                        break;
+                    case 140:
+                        y=240;
+                        x=80;
+                        if(staveCount/2 == 2){
+                            clearCursor(ctx, animation, x, y);
+                        }
+                        break;
+                    case 240:
+                        y=340;
+                        x=80;
+                        if(staveCount/2 == 3){
+                            clearCursor(ctx, animation, x, y);
+                        }
+                        break;
+                    case 340:
+                        y=440;
+                        x=80;
+                        clearCursor(ctx, animation, x, y);
+                        break;
+                    }
                 }
             }
             

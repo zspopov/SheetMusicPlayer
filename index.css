@@ -1,0 +1,44 @@
+p {
+    margin-bottom: 0;
+ } 
+ 
+ .head {
+     text-align: center;
+     width: 800px;
+     margin-left: auto; 
+     margin-right: auto;
+ }
+ 
+ .choose_button {
+     font-family: 'Times New Roman', Times, serif;
+     margin-top: 20px;
+     margin-bottom: 20px;
+     margin-left: 150px;
+     margin-right: 150px;
+     width: 300px;
+     height: 100px;
+     border-radius: 0;
+     border: none;
+     background-color: black;
+     color: white;
+     font-size: medium;
+ }
+
+ .input_button {
+    font-family: 'Times New Roman', Times, serif;
+    display: flex;
+    margin: auto;
+    width: 300px;
+    height: 100px;
+    border-radius: 0;
+    border: none;
+    background-color: black;
+    color: white;
+    font-size: medium;
+    justify-content: center;
+    align-items: center;
+ }
+
+ input#import {
+     display:none;
+ }
